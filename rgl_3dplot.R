@@ -45,10 +45,10 @@ image2D(z,x,y,clab = "f(xy)",rasterImage = TRUE,
 
 ## Funcion Baele
 
-x <- seq(-5,5, by = 0.05)
+x <- seq(-15, 15, by = 0.1)
 y <- x 
 a <- mesh(x,y)
-# se invierte la funcón 
+# Se invierte la funcón 
 z <- -((1.5 - a$x + a$x*a$y) + (2.25 - a$x + a$x*a$y^2)^2 + (2.625 - a$x + a$x*a$y^3)^2)
 surf3D(a$x,a$y,z,theta = 50,phi = 35,bty = "b",shade = 0.0,resfac = c(15,15),add = FALSE)
 image2D(z,x,y,clab = "f(xy)",rasterImage = TRUE,
@@ -57,6 +57,25 @@ image2D(z,x,y,clab = "f(xy)",rasterImage = TRUE,
                       cex.clab = 1.2, col.clab = "black", line.clab = 2,
                       col.axis = "black", col.ticks = "black", cex.axis = 0.8))
 
+## Función Baele Modificada. 
+## x < -15 & x > 15 x ^ 2
+## y < -15 & y > 15 x ^ 2
+
+x <- seq(-25, 25, by = 0.6)
+y <- x 
+a <- mesh(x,y)
+
+z <- ifelse (a$x >= -15 & a$x <= 15 & a$y >= -15 & a$y <= 15, 
+             - ((1.5 - a$x + a$x*a$y) + (2.25 - a$x + a$x*a$y^2)^2 + (2.625 - a$x + a$x*a$y^3)^2),
+             (a$x ^ 2 + a$y ^ 2)/1e8
+)
+
+surf3D(a$x, a$y, z, theta = 50, phi = 35, bty = "b", shade = 0.0, resfac = c(15,15), add = FALSE)
+image2D(z, x, y, clab = "f(xy)", rasterImage = TRUE,
+        colkey = list(dist = .0, shift = 0.229,
+                      side = 3, length = 0.3, width = 1,
+                      cex.clab = 1.2, col.clab = "black", line.clab = 2,
+                      col.axis = "black", col.ticks = "black", cex.axis = 0.8))
 
 # Función Levi. 
 
@@ -116,9 +135,19 @@ image2D(z,x,y,clab = "f(xy)",rasterImage = TRUE,
 
 
 
+x <- seq(-5,5,by = 1)
+y <- x
+a <- mesh(x,y)
+z <- matrix(nrow = length(x), ncol = length(x))
+x
+y
+a
+
+z <- ifelse(a$x >= -3 & a$x <= 3 & a$y >= -4 & a$y <= 4, (a$x ^ 2 + a$y ^ 2), -(a$x ^ 2 + a$y ^ 2))
 
 
-
+ 
+surf3D(a$x,a$y,z,theta = 50,phi = 45,bty = "b",shade = 0.0,resfac = c(15,15),add = FALSE)
 
 
 
