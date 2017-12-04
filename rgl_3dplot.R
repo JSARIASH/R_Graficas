@@ -61,13 +61,13 @@ image2D(z,x,y,clab = "f(xy)",rasterImage = TRUE,
 ## x < -15 & x > 15 x ^ 2
 ## y < -15 & y > 15 x ^ 2
 
-x <- seq(-25, 25, by = 0.6)
+x <- seq(-30, 30, by = 0.6)
 y <- x 
-a <- mesh(x,y)
+a <- mesh(x, y)
 
 z <- ifelse (a$x >= -15 & a$x <= 15 & a$y >= -15 & a$y <= 15, 
              - ((1.5 - a$x + a$x*a$y) + (2.25 - a$x + a$x*a$y^2)^2 + (2.625 - a$x + a$x*a$y^3)^2),
-             (a$x ^ 2 + a$y ^ 2)/1e8
+             (a$x ^ 6 + a$y ^ 6)
 )
 
 surf3D(a$x, a$y, z, theta = 50, phi = 35, bty = "b", shade = 0.0, resfac = c(15,15), add = FALSE)
@@ -77,6 +77,7 @@ image2D(z, x, y, clab = "f(xy)", rasterImage = TRUE,
                       cex.clab = 1.2, col.clab = "black", line.clab = 2,
                       col.axis = "black", col.ticks = "black", cex.axis = 0.8))
 
+rgl.surface(a$x,a$y,z)
 # Función Levi. 
 
 x <- seq(-10,10, by = 0.05)
